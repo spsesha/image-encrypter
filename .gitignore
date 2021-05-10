@@ -1,0 +1,6 @@
+venv/
+.DS_Store/
+.idea/
+credentials.json
+token.json
+*.pyc
