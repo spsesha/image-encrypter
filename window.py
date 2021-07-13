@@ -33,8 +33,8 @@ class MainWindow:
 
     def create_initial_view(self):
         self.current_path = str(Path.home())
-        self.get_screen_resolution()
         self.app = Tk()
+        self.get_screen_resolution()
         self.app.title('Image directory')
         self.app.geometry('800x500')
         self.scale_check = IntVar()
@@ -83,16 +83,8 @@ class MainWindow:
         self.app.mainloop()
 
     def get_screen_resolution(self):
-        screen = Tk()
-        screen.update_idletasks()
-        screen.attributes('-fullscreen', True)
-        screen.state('iconic')
-        height = screen.winfo_screenheight()
-        width = screen.winfo_screenwidth()
-        screen.attributes('-fullscreen', False)
-        screen.destroy()
-        self.screen_width = width * 0.9
-        self.screen_height = height * 0.9
+        self.screen_width = self.app.winfo_screenwidth() * 0.9
+        self.screen_height = self.app.winfo_screenheight() * 0.9
 
     def create_list_frame(self, title):
         frame = Frame(master=self.list_frame)
