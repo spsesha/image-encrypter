@@ -80,6 +80,11 @@ class MainWindow:
         filemenu.add_command(label='Logout Google', command=lambda: self.google_signout())
 
     def start(self):
+        initial_path = self.current_path
+        initial_path = simpledialog.askstring(title='Initial Path', prompt='Please enter a path',
+                                              initialvalue=initial_path)
+        self.current_path = initial_path
+        self.refresh_dir_view(initial_path, 'Home')
         self.app.mainloop()
 
     def get_screen_resolution(self):
@@ -106,18 +111,26 @@ class MainWindow:
             self.open_btn['state'] = DISABLED
             self.export_btn['state'] = DISABLED
             self.delete_btn['state'] = DISABLED
-            for item in self.dir_view.get_children():
-                self.dir_view.delete(item)
-            self.file_view.delete(*self.file_view.get_children())
-            self.dir_view.insert('', '0', 'root', text='Drive')
+            # for item in self.dir_view.get_children():
+            #     self.dir_view.delete(item)
+            # self.file_view.delete(*self.file_view.get_children())
+            # self.dir_view.insert('', '0', 'root', text='Drive')
+            self.refresh_dir_view('root', 'Drive')
             self.check_and_populate(self.current_path)
         else:
             # self.google.logout()
             self.current_path = str(Path.home())
-            for item in self.dir_view.get_children():
-                self.dir_view.delete(item)
-            self.file_view.delete(*self.file_view.get_children())
-            self.dir_view.insert('', '0', self.current_path, text='Home')
+            # for item in self.dir_view.get_children():
+            #     self.dir_view.delete(item)
+            # self.file_view.delete(*self.file_view.get_children())
+            # self.dir_view.insert('', '0', self.current_path, text='Home')
+            self.refresh_dir_view(self.current_path, 'Home')
+
+    def refresh_dir_view(self, path, text):
+        for item in self.dir_view.get_children():
+            self.dir_view.delete(item)
+        self.file_view.delete(*self.file_view.get_children())
+        self.dir_view.insert('', '0', path, text=text)
 
     def google_signout(self):
         self.google.logout()

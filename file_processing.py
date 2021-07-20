@@ -17,6 +17,7 @@ def get_items_list(path, hidden=False):
     direc = [d for d in arr if os.path.isdir(os.path.join(path, d)) and (d != '.' and d != '..')]
     if not hidden:
         direc = [d for d in direc if not d.startswith('.')]
+        files = [f for f in files if not f.startswith('.')]
     direc.sort(key=lambda y: y.lower())
     return files, direc
 
