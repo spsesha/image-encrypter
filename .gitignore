@@ -4,3 +4,6 @@ venv/
 credentials.json
 token.json
 __pycache__
+build/
+dist/
+main.spec
